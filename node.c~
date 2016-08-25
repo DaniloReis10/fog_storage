@@ -66,7 +66,7 @@ uint16_t Node_fromString(Node *this,char *string)
       // instace a Node
       Node_withId( neighbor, neighborId);
       // Add to neighbor list
-      Node_addEdge(this,neighbor);
+      Node_addNeighbor(this,neighbor);
       // gets new neighbor Id
       token      = strtok(NULL,",");
    }
@@ -81,10 +81,10 @@ char *Node_toString(Node *this)
     Node_Edge                        *edge;
     
     sprintf(nodeInfo,"%d:%d,%d:%d:",this->id,(int)(this->x*100),(int)(this->y*100),(int)(this->stability * 100));
-    n = Node_edgeLength(this);
+    n = Node_neighborLength(this);
     i = 0;
 
-    for( edge = Node_edgeHead(this); edge != NULL;edge = Node_edgeNext(this)){
+    for( edge = Node_neighborHead(this); edge != NULL;edge = Node_neighborNext(this)){
         if (i <(n - 1)){
            sprintf(neighbor,"%d,",edge->neighborId);
         }
@@ -97,7 +97,7 @@ char *Node_toString(Node *this)
     return nodeInfo;
 }
 // Lenght of list of neighbors
-Node_Edge *Node_edgeHead(Node *this)
+Node_Edge *Node_neighborHead(Node *this)
 {
    this->edge = list_head(this->oneHop);
    return this->edge;
@@ -105,13 +105,13 @@ Node_Edge *Node_edgeHead(Node *this)
 
 
 // Lenght of list of neighbors
-uint16_t Node_edgeLength(Node *this)
+uint16_t Node_neighborLength(Node *this)
 {
    return list_length(this->oneHop);
 }
 
 // Add a new Neighbor
-void Node_addEdge(Node *this,Node *neighbor)
+void Node_addNeighbor(Node *this,Node *neighbor)
 {
    Node_Edge     *edge;
 
@@ -124,7 +124,7 @@ void Node_addEdge(Node *this,Node *neighbor)
 }
 
 // Get next neighbors
-Node_Edge *Node_edgeNext(Node *this)
+Node_Edge *Node_neighborNext(Node *this)
 {
    this->edge = list_item_next(this->edge);
    return this->edge;

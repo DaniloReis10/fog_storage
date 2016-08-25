@@ -44,13 +44,13 @@ uint16_t   Node_fromString(Node *this,char *string);
 char                     *Node_toString(Node *this);
 
 // Lenght of list of neighbors
-uint16_t                Node_edgeLength(Node *this);
+uint16_t           Node_neighborLength(Node *this);
 
 // Go to first element of neighbors list
-Node_Edge               *Node_edgeHead(Node *this);
+Node_Edge           *Node_neighborHead(Node *this);
 
 // Add a new Neighbor
-void       Node_addEdge(Node *this,Node *neighbor);
+void   Node_addNeighbor(Node *this,Node *neighbor);
 
 // Find edge by node Id
 Node_Edge          *Node_findEdgeById(uint16_t id);
@@ -59,7 +59,7 @@ Node_Edge          *Node_findEdgeById(uint16_t id);
 uint16_t      Node_removeEdgeByIdNode(uint16_t id);
 
 // Get next neighbors
-Node_Edge           *Node_edgeNext(Node *this);
+Node_Edge           *Node_neighborNext(Node *this);
 
 // Destroy node structure
 void                        Node_close(Node *this);
