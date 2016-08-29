@@ -59,9 +59,12 @@ Node_Edge          *Node_findEdgeById(uint16_t id);
 uint16_t      Node_removeEdgeByIdNode(uint16_t id);
 
 // Get next neighbors
-Node_Edge           *Node_edgeNext(Node *this);
+Node_Edge               *Node_edgeNext(Node *this);
 
+// Read message with position from script simulator
+void      Node_readPosition(Node *this,char *data);
 // Destroy node structure
 void                        Node_close(Node *this);
+
 
 #endif

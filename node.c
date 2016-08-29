@@ -1,4 +1,5 @@
 #include "node.h"
+#include "utils.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -19,9 +20,13 @@ void Node_edge_init(Node_Edge *edge,Node *base,Node *neighbor)
 // instances node structure with no parameters
 void Node_init(Node *this)
 {
-    this -> id              = 0;
-    this -> numberNeighbors = 0;  
-    list_init(this->oneHop);
+    this = malloc(sizeof(Node));
+    if( this != NULL){
+    	this -> id              = 0;
+    	this -> numberNeighbors = 0; 
+        this -> stability       = 0; 
+    	list_init(this->oneHop);
+    }
 }
 void Node_withId(Node *this,uint16_t id)
 {   
@@ -132,5 +137,29 @@ Node_Edge *Node_edgeNext(Node *this)
 // Destroy node structure
 void Node_close(Node *this)
 {
+   Node_Edge  *edge;
+   // iterates with list of edge and desalocate memory of each edge
+   for( edge = Node_edgeHead(this); edge != NULL;edge = Node_edgeNext(this)){
+       free(edge);
+   }
+   free(this);
+
 }
+
+void Node_readPosition(Node *this,char *data)
+{
+	char      *msg;
+    char     *my_x,
+             *my_y;
+
+	msg      = strdup((char*) data);
+	my_x     = strtok(msg, "#");
+	my_y     = strtok(NULL, "#");
+ 	this->x  = str2float(my_x);
+	this->y  = str2float(my_y);
+	free(my_x);
+	free(my_y);
+    free(msg); 
+}
+
 
